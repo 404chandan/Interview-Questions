@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int balancedString(string s) {
+        int n = s.size();
+        map<char,int>mpp;
+        for(auto c : s){
+            mpp[c]++;
+        }
+        if(mpp['Q']==n/4 && mpp['W']==n/4 && mpp['E']==n/4 && mpp['R']==n/4) return 0;
+        int left = 0;
+        int minLen = n;
+        for(int right = 0; right < n;++right){
+            mpp[s[right]]--;
+            while(mpp['Q']<=n/4 && mpp['W']<=n/4 && mpp['E']<=n/4 && mpp['R']<=n/4){
+                minLen= min(minLen,right-left+1);
+                mpp[s[left]]++;
+                left++;
+            }
+        }
+        return minLen;
+    }
+};
